@@ -1,3 +1,4 @@
+import json
 from Candidate import Candidate
 from GeminiGenerator import GeminiGenerator
 from CoverLetterService import CoverLetterService
@@ -11,7 +12,18 @@ candidate1 = Candidate("Efe Kwode",
     "Looking for a data scientist to build scalable AI solutions",
     "", "", "")
 
+with open("candidates.json", "r") as f:
+    candidates_data = json.load(f)
+
+candidates = [Candidate(**c) for c in candidates_data]
+for c in candidates:
+    service = CoverLetterService(GeminiGenerator("gemini-2.5-flash"))
+    coverLetter = service.generateTokenUsage(c)
+    print(coverLetter)
+    print("=" * 60)
+
 service = CoverLetterService(GeminiGenerator("gemini-2.5-flash"))
-print(service.generateTokenUsage(candidate1))
+# print(service.generateTokenUsage(candidate1))
+
 
 

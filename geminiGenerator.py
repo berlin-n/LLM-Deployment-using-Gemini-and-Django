@@ -21,8 +21,9 @@ class GeminiGenerator:
         usage = getattr(response, "usage_metadata", None)
         if usage:
             tokens = {
-                "prompt_tokens + output_tokens": usage.prompt_token_count,
+                "prompt_tokens": usage.prompt_token_count,
                 "output_tokens": usage.candidates_token_count,
+                "prompt_tokens + output_tokens": usage.prompt_token_count + usage.candidates_token_count,
                 "total_tokens": usage.total_token_count,
             }
         else:
