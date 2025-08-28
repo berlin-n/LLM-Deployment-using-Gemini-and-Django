@@ -12,6 +12,13 @@ class GeminiGenerator:
         )
         return response.text 
     
+    def generateOnlyTokenUsage(self, prompt: str):
+        response = self.client.models.generate_content(
+            model = self.model,
+            contents = prompt
+        )
+        return response.usage_metadata
+    
 if __name__ == "__main__":
     generator = GeminiGenerator("gemini-2.5-flash")
     print(generator.generate("Hello from Python and Gemini"))
